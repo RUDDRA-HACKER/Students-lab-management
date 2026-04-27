@@ -1,0 +1,37 @@
+SELECT*FROM alert;
+SELECT*FROM calibration;
+SELECT*FROM maintenance;
+SELECT*FROM equipment;
+
+INSERT INTO equipment (id, name, type, serial_number, status) VALUES
+  (1, 'Analytical Balance', 'Analytical Instruments', 'EQ-2024-001', 'AVAILABLE'),
+  (2, 'Microscope', 'Microscopy', 'EQ-2024-002', 'UNDER_MAINTENANCE'),
+  (3, 'Centrifuge', 'Centrifugation', 'EQ-2024-003', 'UNDER_MAINTENANCE'),
+  (4, 'Fume Hood', 'Safety Equipment', 'EQ-2024-004', 'AVAILABLE'),
+  (5, 'Water Bath', 'Heating & Cooling', 'EQ-2024-005', 'AVAILABLE'),
+  (6, 'Autoclave', 'Sterilization', 'EQ-2024-006', 'AVAILABLE'),
+  (7, 'PCR Thermal Cycler', 'Molecular Biology', 'EQ-2024-007', 'IN_USE'),
+  (8, 'UV-Vis Spectrophotometer', 'Spectroscopy', 'EQ-2024-008', 'AVAILABLE'),
+  (9, 'Hot Air Oven', 'Heating & Cooling', 'EQ-2024-009', 'UNDER_MAINTENANCE'),
+  (10, 'pH Meter', 'Analytical Instruments', 'EQ-2024-010', 'AVAILABLE'),
+  (11, 'Incubator', 'Cell Culture', 'EQ-2024-011', 'AVAILABLE'),
+  (12, 'Water Purification System', 'Utilities', 'EQ-2024-012', 'UNDER_MAINTENANCE'),
+  (13, 'Orbital Shaker', 'Mixing', 'EQ-2024-013', 'AVAILABLE'),
+  (14, 'Laboratory Refrigerator', 'Cold Storage', 'EQ-2024-014', 'AVAILABLE'),
+  (15, 'Laminar Flow Cabinet', 'Safety Equipment', 'EQ-2024-015', 'UNDER_MAINTENANCE');
+
+INSERT INTO maintenance (id, description, maintenance_date, performed_by, status, equipment_id) VALUES
+  (1, 'Optics cleaning and alignment.', '2026-04-28', 'Arjun Mehta', 'PENDING', 2),
+  (2, 'Replace vibration dampers and test rotor.', '2026-04-26', 'Priya Nair', 'PENDING', 3),
+  (3, 'Verification weight check.', '2026-05-03', 'S. Kumar', 'PENDING', 1);
+
+INSERT INTO calibration (id, calibration_date, next_due_date, calibrated_by, result, equipment_id) VALUES
+  (1, '2026-01-10', '2026-07-10', 'Metro Labs', 'PASSED', 1),
+  (2, '2025-04-22', '2026-04-26', 'In-house', 'PASSED', 2);
+
+INSERT INTO alert (id, message, type, created_at, equipment_id) VALUES
+  (1, 'Centrifuge service overdue', 'MAINTENANCE_DUE', '2026-04-26 09:50:00', 3),
+  (2, 'Microscope calibration due soon', 'CALIBRATION_DUE', '2026-04-26 09:00:00', 2),
+  (3, 'New equipment added', 'MAINTENANCE_DUE', '2026-04-26 08:30:00', 1);
+
+
