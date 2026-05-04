@@ -2,10 +2,22 @@ package com.group_v.Student_labmangment_backend.controller;
 
 import com.group_v.Student_labmangment_backend.model.Equipment;
 import com.group_v.Student_labmangment_backend.exception.ResourceNotFoundException;
+<<<<<<< HEAD
+import com.group_v.Student_labmangment_backend.repository.AlertRepository;
+import com.group_v.Student_labmangment_backend.repository.CalibrationRepository;
+import com.group_v.Student_labmangment_backend.repository.EquipmentRepository;
+import com.group_v.Student_labmangment_backend.repository.MaintenanceRepository;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+=======
 import com.group_v.Student_labmangment_backend.repository.EquipmentRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +27,26 @@ import java.util.Map;
 public class EquipmentController {
 
     private final EquipmentRepository repo;
+<<<<<<< HEAD
+    private final MaintenanceRepository maintenanceRepository;
+    private final CalibrationRepository calibrationRepository;
+    private final AlertRepository alertRepository;
+
+    public EquipmentController(
+            EquipmentRepository repo,
+            MaintenanceRepository maintenanceRepository,
+            CalibrationRepository calibrationRepository,
+            AlertRepository alertRepository
+    ) {
+        this.repo = repo;
+        this.maintenanceRepository = maintenanceRepository;
+        this.calibrationRepository = calibrationRepository;
+        this.alertRepository = alertRepository;
+=======
 
     public EquipmentController(EquipmentRepository repo) {
         this.repo = repo;
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
     }
 
     @GetMapping
@@ -93,4 +122,46 @@ public class EquipmentController {
     public void delete(@PathVariable Long id) {
         repo.deleteById(id);
     }
+<<<<<<< HEAD
+
+    @GetMapping("/reports/summary")
+    public Map<String, Object> getReportsSummary() {
+        LocalDate today = LocalDate.now();
+
+        List<Equipment> equipment = repo.findAll();
+        Map<String, Long> byStatus = new HashMap<>();
+        for (Equipment item : equipment) {
+            String status = item.getStatus() == null || item.getStatus().isBlank()
+                    ? "UNKNOWN"
+                    : item.getStatus().trim().toUpperCase();
+            byStatus.put(status, byStatus.getOrDefault(status, 0L) + 1);
+        }
+
+        long dueMaintenance = maintenanceRepository.findAll().stream()
+                .filter(record -> record.getMaintenanceDate() != null)
+                .filter(record -> !record.getMaintenanceDate().isAfter(today))
+                .filter(record -> {
+                    String status = record.getStatus();
+                    return status == null || !"COMPLETED".equalsIgnoreCase(status.trim());
+                })
+                .count();
+
+        long dueCalibration = calibrationRepository.findAll().stream()
+                .filter(record -> record.getNextDueDate() != null)
+                .filter(record -> !record.getNextDueDate().isAfter(today))
+                .count();
+
+        long activeAlerts = alertRepository.count();
+
+        Map<String, Object> summary = new LinkedHashMap<>();
+        summary.put("totalEquipment", equipment.size());
+        summary.put("byStatus", byStatus);
+        summary.put("dueMaintenance", dueMaintenance);
+        summary.put("dueCalibration", dueCalibration);
+        summary.put("activeAlerts", activeAlerts);
+        summary.put("asOfDate", today.toString());
+        return summary;
+    }
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 }

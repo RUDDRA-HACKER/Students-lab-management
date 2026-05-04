@@ -9,6 +9,14 @@ const state = {
   maintenance: maintenanceSeed.map((item) => ({ ...item })),
   calibration: calibrationSeed.map((item) => ({ ...item })),
   alerts: alertsSeed.map((item) => ({ ...item })),
+<<<<<<< HEAD
+  reports: {
+    summary: null,
+    monthly: null,
+    loading: false,
+  },
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   activePage: 'dashboard',
   activeFilter: 'all',
   viewMode: 'grid',
@@ -36,6 +44,19 @@ const elements = {
   barChart: document.getElementById('barChart'),
   ageChart: document.getElementById('ageChart'),
   lineChart: document.getElementById('lineChart'),
+<<<<<<< HEAD
+  refreshReportsBtn: document.getElementById('refreshReportsBtn'),
+  reportTotalEquipment: document.getElementById('reportTotalEquipment'),
+  reportDueMaintenance: document.getElementById('reportDueMaintenance'),
+  reportDueCalibration: document.getElementById('reportDueCalibration'),
+  reportActiveAlerts: document.getElementById('reportActiveAlerts'),
+  reportAsOfDate: document.getElementById('reportAsOfDate'),
+  reportStatusList: document.getElementById('reportStatusList'),
+  reportRangeLabel: document.getElementById('reportRangeLabel'),
+  reportMonthlyChart: document.getElementById('reportMonthlyChart'),
+  reportMonthList: document.getElementById('reportMonthList'),
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   alertsList: document.getElementById('alertsList'),
   toastContainer: document.getElementById('toastContainer'),
   modal: document.getElementById('equipmentModal'),
@@ -294,6 +315,18 @@ async function fetchAlertsApi() {
   return Array.isArray(data) ? data.map(normalizeAlertFromApi) : [];
 }
 
+<<<<<<< HEAD
+async function fetchReportsSummaryApi() {
+  return apiRequest('/api/equipment/reports/summary');
+}
+
+async function fetchMonthlyMaintenanceFrequencyApi(months = 6) {
+  const normalizedMonths = Math.max(1, Math.min(Number(months) || 6, 36));
+  return apiRequest(`/api/maintenance/frequency/monthly?months=${normalizedMonths}`);
+}
+
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 function toEquipmentApiPayload(payload) {
   return {
     name: payload.name,
@@ -369,6 +402,163 @@ async function loadAllDataFromApi({ showErrorToast = true } = {}) {
   }
 }
 
+<<<<<<< HEAD
+function formatStatusLabel(status) {
+  const normalized = String(status || '').toUpperCase();
+  if (normalized === 'UNDER_MAINTENANCE') return 'Under Maintenance';
+  if (normalized === 'IN_USE') return 'In Use';
+  if (normalized === 'AVAILABLE') return 'Available';
+  if (normalized === 'UNKNOWN') return 'Unknown';
+  return status || 'Unknown';
+}
+
+function renderReports() {
+  const summary = state.reports.summary;
+  const monthly = state.reports.monthly;
+
+  if (elements.reportTotalEquipment) {
+    elements.reportTotalEquipment.textContent = summary ? String(summary.totalEquipment ?? 0) : '--';
+  }
+  if (elements.reportDueMaintenance) {
+    elements.reportDueMaintenance.textContent = summary ? String(summary.dueMaintenance ?? 0) : '--';
+  }
+  if (elements.reportDueCalibration) {
+    elements.reportDueCalibration.textContent = summary ? String(summary.dueCalibration ?? 0) : '--';
+  }
+  if (elements.reportActiveAlerts) {
+    elements.reportActiveAlerts.textContent = summary ? String(summary.activeAlerts ?? 0) : '--';
+  }
+  if (elements.reportAsOfDate) {
+    elements.reportAsOfDate.textContent = summary?.asOfDate ? formatDate(summary.asOfDate) : '--';
+  }
+
+  if (elements.reportStatusList) {
+    const statuses = summary?.byStatus || {};
+    const items = Object.entries(statuses)
+      .sort((a, b) => Number(b[1]) - Number(a[1]))
+      .map(
+        ([status, count]) => `<span class="report-status-chip">${formatStatusLabel(status)}<span class="count">${count}</span></span>`,
+      )
+      .join('');
+    elements.reportStatusList.innerHTML = items || '<span class="empty-state-sm">No status data</span>';
+  }
+
+  if (elements.reportRangeLabel) {
+    const start = monthly?.startMonth || '';
+    const end = monthly?.endMonth || '';
+    elements.reportRangeLabel.textContent = start && end ? `${start} to ${end}` : 'No range';
+  }
+
+  if (elements.reportMonthList) {
+    const counts = monthly?.counts || {};
+    const items = Object.entries(counts)
+      .map(([month, count]) => `<span class="report-month-item">${month}<strong>${count}</strong></span>`)
+      .join('');
+    elements.reportMonthList.innerHTML = items || '<span class="empty-state-sm">No maintenance trend data</span>';
+  }
+
+  drawMonthlyFrequencyChart(elements.reportMonthlyChart, monthly?.counts || {});
+}
+
+function drawMonthlyFrequencyChart(canvas, countsByMonth) {
+  if (!canvas) return;
+  const context = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const cssWidth = Math.max(canvas.clientWidth || 680, 320);
+  const cssHeight = 220;
+
+  canvas.width = Math.floor(cssWidth * dpr);
+  canvas.height = Math.floor(cssHeight * dpr);
+  context.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const width = cssWidth;
+  const height = cssHeight;
+  const labels = Object.keys(countsByMonth || {});
+  const values = Object.values(countsByMonth || {}).map((value) => Number(value) || 0);
+
+  context.clearRect(0, 0, width, height);
+
+  if (!labels.length) {
+    context.fillStyle = '#8b949e';
+    context.font = '13px Inter, sans-serif';
+    context.textAlign = 'center';
+    context.fillText('No monthly maintenance data available', width / 2, height / 2);
+    return;
+  }
+
+  const max = Math.max(...values, 1);
+  const padding = { top: 24, right: 16, bottom: 38, left: 34 };
+  const chartWidth = width - padding.left - padding.right;
+  const chartHeight = height - padding.top - padding.bottom;
+  const step = chartWidth / labels.length;
+  const barWidth = Math.max(16, Math.min(42, step * 0.58));
+
+  context.strokeStyle = '#30363d';
+  context.lineWidth = 1;
+  context.beginPath();
+  context.moveTo(padding.left, padding.top + chartHeight);
+  context.lineTo(width - padding.right, padding.top + chartHeight);
+  context.stroke();
+
+  context.fillStyle = '#8b949e';
+  context.font = '11px Inter, sans-serif';
+  context.textAlign = 'center';
+
+  values.forEach((value, index) => {
+    const x = padding.left + index * step + (step - barWidth) / 2;
+    const barHeight = (value / max) * chartHeight;
+    const y = padding.top + chartHeight - barHeight;
+
+    const gradient = context.createLinearGradient(0, y, 0, padding.top + chartHeight);
+    gradient.addColorStop(0, '#2f81f7');
+    gradient.addColorStop(1, '#6e40c9');
+    context.fillStyle = gradient;
+    context.fillRect(x, y, barWidth, barHeight);
+
+    context.fillStyle = '#8b949e';
+    context.fillText(labels[index].slice(5), x + barWidth / 2, height - 14);
+
+    context.fillStyle = '#e6edf3';
+    context.font = '10px Inter, sans-serif';
+    context.fillText(String(value), x + barWidth / 2, y - 6);
+    context.font = '11px Inter, sans-serif';
+  });
+}
+
+async function loadReportsData({ showErrorToast = true, force = false } = {}) {
+  if (state.reports.loading) return;
+  if (!force && state.reports.summary && state.reports.monthly) {
+    renderReports();
+    return;
+  }
+
+  state.reports.loading = true;
+  if (elements.reportRangeLabel) {
+    elements.reportRangeLabel.textContent = 'Loading...';
+  }
+
+  try {
+    const [summary, monthly] = await Promise.all([
+      fetchReportsSummaryApi(),
+      fetchMonthlyMaintenanceFrequencyApi(6),
+    ]);
+
+    state.reports.summary = summary;
+    state.reports.monthly = monthly;
+    renderReports();
+  } catch (error) {
+    if (showErrorToast) {
+      showToast('Could not load reports from backend.', 'error');
+    }
+    console.error(error);
+    renderReports();
+  } finally {
+    state.reports.loading = false;
+  }
+}
+
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 function renderEquipmentCard(item) {
   const ageLabel = item.purchaseDate ? `${Math.max(0, Math.floor((Date.now() - new Date(item.purchaseDate)) / 31536000000))} yrs` : 'N/A';
   return `
@@ -730,6 +920,12 @@ function setActivePage(page) {
   if (page === 'maintenance' || page === 'calibration' || page === 'alerts') {
     loadAllDataFromApi({ showErrorToast: false });
   }
+<<<<<<< HEAD
+  if (page === 'reports') {
+    loadReportsData({ showErrorToast: true });
+  }
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   closeSidebar();
 }
 
@@ -1074,6 +1270,16 @@ function bindEvents() {
     showToast('Calibration list refreshed from backend.', 'info');
   });
 
+<<<<<<< HEAD
+  if (elements.refreshReportsBtn) {
+    elements.refreshReportsBtn.addEventListener('click', async () => {
+      await loadReportsData({ showErrorToast: true, force: true });
+      showToast('Reports refreshed from backend.', 'success');
+    });
+  }
+
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   [elements.closeModal, elements.cancelModal].forEach((button) => {
     button.addEventListener('click', () => {
       closeModal(elements.modal);
@@ -1118,6 +1324,10 @@ function refreshAll() {
   renderAlerts();
   populateEquipmentSelect();
   renderCharts();
+<<<<<<< HEAD
+  renderReports();
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 }
 
 async function init() {

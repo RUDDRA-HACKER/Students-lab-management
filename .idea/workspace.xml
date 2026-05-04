@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
+<<<<<<< HEAD
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6614c8be-484b-45ee-9f7f-2ca4ea3541db" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
@@ -13,6 +20,7 @@
       <change beforePath="$PROJECT_DIR$/Student_labmangment_backend/target/classes/com/group_v/Student_labmangment_backend/model/Maintenance.class" beforeDir="false" afterPath="$PROJECT_DIR$/Student_labmangment_backend/target/classes/com/group_v/Student_labmangment_backend/model/Maintenance.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Student_labmangment_backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Student_labmangment_backend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Student_labmangment_backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Student_labmangment_backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +52,8 @@
     &quot;accountId&quot;: &quot;5cea51fe-9707-4495-9a86-2e1ae7ce84c5&quot;
   }
 }</component>
+<<<<<<< HEAD
+=======
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -51,6 +61,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -69,6 +80,10 @@
     "Maven.Student_labmangment_backend [clean].executor": "Run",
     "Maven.Student_labmangment_backend [compile].executor": "Run",
     "Maven.Student_labmangment_backend [install].executor": "Run",
+<<<<<<< HEAD
+    "Maven.maven.executor": "Run",
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -76,11 +91,20 @@
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.Lab manegemeant.executor": "Run",
     "Spring Boot.StudentLabmangmentBackendApplication.executor": "Run",
+<<<<<<< HEAD
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/rudra/Desktop/code/Student_library",
+    "settings.build.tools.auto.reload": "ALL",
+    "settings.editor.selected.configurable": "build.tools"
+=======
     "git-widget-placeholder": "Rudra",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/rudra/Desktop/code/Student_library",
     "settings.editor.selected.configurable": "preferences.pluginManager"
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -91,7 +115,30 @@
   <component name="RunManager" selected="Maven.maven">
     <configuration name="maven" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
+<<<<<<< HEAD
+        <option name="myGeneralSettings">
+          <MavenGeneralSettings>
+            <option name="alwaysUpdateSnapshots" value="false" />
+            <option name="checksumPolicy" value="NOT_SET" />
+            <option name="customMavenHome" />
+            <option name="emulateTerminal" value="false" />
+            <option name="failureBehavior" value="NOT_SET" />
+            <option name="localRepository" value="" />
+            <option name="mavenHome" value="Bundled (Maven 3)" />
+            <option name="mavenHomeTypeForPersistence" value="BUNDLED3" />
+            <option name="nonRecursive" value="false" />
+            <option name="outputLevel" value="INFO" />
+            <option name="printErrorStackTraces" value="false" />
+            <option name="showDialogWithAdvancedSettings" value="false" />
+            <option name="threads" />
+            <option name="useMavenConfig" value="true" />
+            <option name="userSettingsFile" value="$USER_HOME$/.m2/settings.xml" />
+            <option name="workOffline" value="false" />
+          </MavenGeneralSettings>
+        </option>
+=======
         <option name="myGeneralSettings" />
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
         <option name="myRunnerSettings" />
         <option name="myRunnerParameters">
           <MavenRunnerParameters>

@@ -301,6 +301,50 @@
         <p class="page-subtitle">Insights into equipment utilization and costs</p>
       </div>
       <div class="reports-grid">
+<<<<<<< HEAD
+        <div class="card full-width">
+          <div class="card-header">
+            <h2>Reports Summary</h2>
+            <button class="btn btn-ghost btn-sm" id="refreshReportsBtn">Refresh</button>
+          </div>
+          <div class="report-summary-grid">
+            <article class="report-kpi">
+              <span class="report-kpi-label">Total Equipment</span>
+              <span class="report-kpi-value" id="reportTotalEquipment">--</span>
+            </article>
+            <article class="report-kpi">
+              <span class="report-kpi-label">Due Maintenance</span>
+              <span class="report-kpi-value" id="reportDueMaintenance">--</span>
+            </article>
+            <article class="report-kpi">
+              <span class="report-kpi-label">Due Calibration</span>
+              <span class="report-kpi-value" id="reportDueCalibration">--</span>
+            </article>
+            <article class="report-kpi">
+              <span class="report-kpi-label">Active Alerts</span>
+              <span class="report-kpi-value" id="reportActiveAlerts">--</span>
+            </article>
+            <article class="report-kpi">
+              <span class="report-kpi-label">As Of Date</span>
+              <span class="report-kpi-value report-date" id="reportAsOfDate">--</span>
+            </article>
+          </div>
+          <div class="report-status-wrap">
+            <h3>Equipment By Status</h3>
+            <div class="report-status-list" id="reportStatusList">
+              <span class="empty-state-sm">No status data</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card full-width">
+          <div class="card-header">
+            <h2>Monthly Maintenance Frequency</h2>
+            <span class="report-range" id="reportRangeLabel">Last 6 months</span>
+          </div>
+          <canvas id="reportMonthlyChart" height="220"></canvas>
+          <div class="report-month-list" id="reportMonthList"></div>
+=======
         <div class="card">
           <div class="card-header"><h2>Monthly Cost Analysis</h2></div>
           <canvas id="barChart" height="200"></canvas>
@@ -312,6 +356,7 @@
         <div class="card full-width">
           <div class="card-header"><h2>Maintenance Frequency</h2></div>
           <canvas id="lineChart" height="160"></canvas>
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
         </div>
       </div>
     </div>
