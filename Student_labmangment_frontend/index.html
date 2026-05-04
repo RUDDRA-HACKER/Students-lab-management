@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Laboratory Equipment Lifecycle Management System - Track, manage, and maintain all your lab equipment in one place." />
+  <title>group_v.Student_labmangment_backend — Equipment Lifecycle Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
+          </svg>
+        </div>
+        <span class="logo-text">Lab Equipment Manager</span>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Close sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <span class="nav-label">Overview</span>
+        <a href="#" class="nav-item active" data-page="dashboard" id="nav-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="nav-item" data-page="equipment" id="nav-equipment">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          Equipment
+          <span class="badge" id="badge-equipment">0</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <span class="nav-label">Maintenance</span>
+        <a href="#" class="nav-item" data-page="maintenance" id="nav-maintenance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Maintenance
+          <span class="badge badge-warning" id="badge-maintenance">0</span>
+        </a>
+        <a href="#" class="nav-item" data-page="calibration" id="nav-calibration">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Calibration
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <span class="nav-label">Reports</span>
+        <a href="#" class="nav-item" data-page="reports" id="nav-reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Analytics
+        </a>
+        <a href="#" class="nav-item" data-page="alerts" id="nav-alerts">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Alerts
+          <span class="badge badge-danger" id="badge-alerts">0</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-avatar">LAB</div>
+      <div class="user-info">
+        <span class="user-name">Student LAB manager </span>
+        <span class="user-role">Lab Administrator</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main Content -->
+  <main class="main-content" id="mainContent">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-btn" id="menuBtn" aria-label="Open sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <form class="search-bar" id="globalSearchForm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="globalSearch" placeholder="Search equipment, ID, category..." />
+        </form>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="notifBtn" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notif-dot" id="notifDot"></span>
+        </button>
+        <button class="btn btn-primary" id="addEquipmentBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Equipment
+        </button>
+      </div>
+    </header>
+
+    <!-- Pages -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>Dashboard</h1>
+        <p class="page-subtitle">Overview of your laboratory equipment lifecycle</p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card" data-stat-page="equipment" data-stat-filter="all" role="button" tabindex="0" aria-label="Open equipment list">
+          <div class="stat-icon stat-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value" id="stat-total">0</span>
+            <span class="stat-label">Total Equipment</span>
+          </div>
+          <div class="stat-trend trend-up" id="stat-trend-total">+0%</div>
+        </div>
+        <div class="stat-card" data-stat-page="equipment" data-stat-filter="Operational" role="button" tabindex="0" aria-label="Open operational equipment">
+          <div class="stat-icon stat-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value" id="stat-active">0</span>
+            <span class="stat-label">Operational</span>
+          </div>
+          <div class="stat-trend trend-up" id="stat-trend-active">0%</div>
+        </div>
+        <div class="stat-card" data-stat-page="maintenance" role="button" tabindex="0" aria-label="Open maintenance tracker">
+          <div class="stat-icon stat-amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value" id="stat-maintenance">0</span>
+            <span class="stat-label">In Maintenance</span>
+          </div>
+          <div class="stat-trend trend-down" id="stat-trend-maint">0</div>
+        </div>
+        <div class="stat-card" data-stat-page="alerts" role="button" tabindex="0" aria-label="Open alerts and notifications">
+          <div class="stat-icon stat-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value" id="stat-retired">0</span>
+            <span class="stat-label">Retired</span>
+          </div>
+          <div class="stat-trend trend-neutral" id="stat-trend-ret">0</div>
+        </div>
+      </div>
+
+      <!-- Charts & Recent -->
+      <div class="dashboard-grid">
+        <div class="card chart-card">
+          <div class="card-header">
+            <h2>Equipment Status</h2>
+            <div class="chart-legend" id="chartLegend"></div>
+          </div>
+          <div class="donut-wrapper">
+            <canvas id="donutChart" width="220" height="220"></canvas>
+            <div class="donut-center" id="donutCenter">
+              <span class="donut-num" id="donutNum">0</span>
+              <span class="donut-lbl">Total</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Upcoming Maintenance</h2>
+            <a href="#" class="link" data-page="maintenance">View All</a>
+          </div>
+          <div class="upcoming-list" id="upcomingList">
+            <div class="empty-state-sm">No upcoming maintenance</div>
+          </div>
+        </div>
+
+        <div class="card recent-card">
+          <div class="card-header">
+            <h2>Recent Activity</h2>
+          </div>
+          <div class="activity-feed" id="activityFeed">
+            <div class="empty-state-sm">No recent activity</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Category Breakdown</h2>
+          </div>
+          <div class="bar-list" id="categoryBars"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Equipment Page -->
+    <div class="page" id="page-equipment">
+      <div class="page-header">
+        <div>
+          <h1>Equipment Registry</h1>
+          <p class="page-subtitle">All laboratory equipment and their lifecycle status</p>
+        </div>
+        <button class="btn btn-primary" id="addEquipmentBtn2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Equipment
+        </button>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-tabs" id="equipmentFilterTabs">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="Operational">Operational</button>
+          <button class="filter-tab" data-filter="In Use">In Use</button>
+          <button class="filter-tab" data-filter="Maintenance">Maintenance</button>
+        </div>
+        <div class="view-toggle">
+          <button class="view-btn active" id="gridViewBtn" aria-label="Grid view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </button>
+          <button class="view-btn" id="listViewBtn" aria-label="List view">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="equipment-grid" id="equipmentGrid"></div>
+    </div>
+
+    <!-- Maintenance Page -->
+    <div class="page" id="page-maintenance">
+      <div class="page-header">
+        <div>
+          <h1>Maintenance Tracker</h1>
+          <p class="page-subtitle">Schedule and track maintenance activities</p>
+        </div>
+        <button class="btn btn-primary" id="addMaintenanceBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Schedule Maintenance
+        </button>
+      </div>
+      <div class="maintenance-table-wrapper">
+        <table class="data-table" id="maintenanceTable">
+          <thead>
+            <tr>
+              <th>Equipment</th>
+              <th>Type</th>
+              <th>Scheduled Date</th>
+              <th>Technician</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="maintenanceBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Calibration Page -->
+    <div class="page" id="page-calibration">
+      <div class="page-header">
+        <div>
+          <h1>Calibration Log</h1>
+          <p class="page-subtitle">Track calibration schedules and certificates</p>
+        </div>
+        <button class="btn btn-primary" id="addCalibrationBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Refresh Calibration
+        </button>
+      </div>
+      <div class="maintenance-table-wrapper">
+        <table class="data-table" id="calibrationTable">
+          <thead>
+            <tr>
+              <th>Equipment</th>
+              <th>Last Calibrated</th>
+              <th>Next Due</th>
+              <th>Certificate #</th>
+              <th>Performed By</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="calibrationBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Reports Page -->
+    <div class="page" id="page-reports">
+      <div class="page-header">
+        <h1>Analytics &amp; Reports</h1>
+        <p class="page-subtitle">Insights into equipment utilization and costs</p>
+      </div>
+      <div class="reports-grid">
+        <div class="card full-width">
+          <div class="card-header">
+            <h2>Reports Summary</h2>
+            <button class="btn btn-ghost btn-sm" id="refreshReportsBtn">Refresh</button>
+          </div>
+          <div class="report-summary-grid">
+            <article class="report-kpi">
+              <span class="report-kpi-label">Total Equipment</span>
+              <span class="report-kpi-value" id="reportTotalEquipment">--</span>
+            </article>
+            <article class="report-kpi">
+              <span class="report-kpi-label">Due Maintenance</span>
+              <span class="report-kpi-value" id="reportDueMaintenance">--</span>
+            </article>
+            <article class="report-kpi">
+              <span class="report-kpi-label">Due Calibration</span>
+              <span class="report-kpi-value" id="reportDueCalibration">--</span>
+            </article>
+            <article class="report-kpi">
+              <span class="report-kpi-label">Active Alerts</span>
+              <span class="report-kpi-value" id="reportActiveAlerts">--</span>
+            </article>
+            <article class="report-kpi">
+              <span class="report-kpi-label">As Of Date</span>
+              <span class="report-kpi-value report-date" id="reportAsOfDate">--</span>
+            </article>
+          </div>
+          <div class="report-status-wrap">
+            <h3>Equipment By Status</h3>
+            <div class="report-status-list" id="reportStatusList">
+              <span class="empty-state-sm">No status data</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card full-width">
+          <div class="card-header">
+            <h2>Monthly Maintenance Frequency</h2>
+            <span class="report-range" id="reportRangeLabel">Last 6 months</span>
+          </div>
+          <canvas id="reportMonthlyChart" height="220"></canvas>
+          <div class="report-month-list" id="reportMonthList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alerts Page -->
+    <div class="page" id="page-alerts">
+      <div class="page-header">
+        <h1>Alerts &amp; Notifications</h1>
+        <p class="page-subtitle">Critical issues requiring your attention</p>
+      </div>
+      <div class="alerts-list" id="alertsList"></div>
+    </div>
+
+  </main>
+
+  <!-- Modal: Add/Edit Equipment -->
+  <div class="modal-backdrop" id="equipmentModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add Equipment</h2>
+        <button class="modal-close" id="closeModal" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="equipmentForm" class="modal-body" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="eqName">Equipment Name *</label>
+            <input type="text" id="eqName" placeholder="e.g. Analytical Balance" required />
+          </div>
+          <div class="form-group">
+            <label for="eqId">Equipment ID *</label>
+            <input type="text" id="eqId" placeholder="e.g. EQ-2024-001" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="eqCategory">Category *</label>
+            <select id="eqCategory" required>
+              <option value="">Select category</option>
+              <option>Analytical Instruments</option>
+              <option>Microscopy</option>
+              <option>Spectroscopy</option>
+              <option>Chromatography</option>
+              <option>Centrifugation</option>
+              <option>Heating & Cooling</option>
+              <option>Safety Equipment</option>
+              <option>Glassware</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="eqStatus">Status *</label>
+            <select id="eqStatus" required>
+              <option value="">Select status</option>
+              <option>Operational</option>
+              <option>Maintenance</option>
+              <option>In Use</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="eqManufacturer">Manufacturer</label>
+            <input type="text" id="eqManufacturer" placeholder="e.g. Sartorius AG" />
+          </div>
+          <div class="form-group">
+            <label for="eqModel">Model</label>
+            <input type="text" id="eqModel" placeholder="e.g. Quintix 224-1S" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="eqPurchaseDate">Purchase Date</label>
+            <input type="date" id="eqPurchaseDate" />
+          </div>
+          <div class="form-group">
+            <label for="eqWarranty">Warranty Expiry</label>
+            <input type="date" id="eqWarranty" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="eqLocation">Location</label>
+            <input type="text" id="eqLocation" placeholder="e.g. Lab Room 3B" />
+          </div>
+          <div class="form-group">
+            <label for="eqCost">Purchase Cost (₹)</label>
+            <input type="number" id="eqCost" placeholder="e.g. 250000" min="0" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="eqNotes">Notes</label>
+          <textarea id="eqNotes" placeholder="Additional notes or remarks..." rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelModal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submitEquipment">Add Equipment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Maintenance Schedule -->
+  <div class="modal-backdrop" id="maintenanceModal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h2 id="maintenanceModalTitle">Schedule Maintenance</h2>
+        <button class="modal-close" id="closeMaintenanceModal" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form id="maintenanceForm" class="modal-body" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mEqSelect">Equipment *</label>
+            <select id="mEqSelect" required></select>
+          </div>
+          <div class="form-group">
+            <label for="mType">Maintenance Type *</label>
+            <select id="mType" required>
+              <option value="">Select type</option>
+              <option>Preventive</option>
+              <option>Corrective</option>
+              <option>Predictive</option>
+              <option>Emergency</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mDate">Scheduled Date *</label>
+            <input type="date" id="mDate" required />
+          </div>
+          <div class="form-group">
+            <label for="mTechnician">Technician</label>
+            <input type="text" id="mTechnician" placeholder="e.g. Arjun Mehta" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mPriority">Priority</label>
+            <select id="mPriority">
+              <option>Low</option>
+              <option>Medium</option>
+              <option selected>High</option>
+              <option>Critical</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mCost">Estimated Cost (₹)</label>
+            <input type="number" id="mCost" placeholder="e.g. 5000" min="0" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mDesc">Description</label>
+          <textarea id="mDesc" placeholder="Describe the maintenance task..." rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelMaintenanceModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Schedule</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: View Equipment Details -->
+  <div class="modal-backdrop" id="detailModal">
+    <div class="modal modal-wide" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h2 id="detailModalTitle">Equipment Details</h2>
+        <button class="modal-close" id="closeDetailModal" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="detailModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
