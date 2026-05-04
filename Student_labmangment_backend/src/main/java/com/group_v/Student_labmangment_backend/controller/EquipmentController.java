@@ -2,6 +2,7 @@ package com.group_v.Student_labmangment_backend.controller;
 
 import com.group_v.Student_labmangment_backend.model.Equipment;
 import com.group_v.Student_labmangment_backend.exception.ResourceNotFoundException;
+<<<<<<< HEAD
 import com.group_v.Student_labmangment_backend.repository.AlertRepository;
 import com.group_v.Student_labmangment_backend.repository.CalibrationRepository;
 import com.group_v.Student_labmangment_backend.repository.EquipmentRepository;
@@ -11,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+=======
+import com.group_v.Student_labmangment_backend.repository.EquipmentRepository;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +27,7 @@ import java.util.Map;
 public class EquipmentController {
 
     private final EquipmentRepository repo;
+<<<<<<< HEAD
     private final MaintenanceRepository maintenanceRepository;
     private final CalibrationRepository calibrationRepository;
     private final AlertRepository alertRepository;
@@ -34,6 +42,11 @@ public class EquipmentController {
         this.maintenanceRepository = maintenanceRepository;
         this.calibrationRepository = calibrationRepository;
         this.alertRepository = alertRepository;
+=======
+
+    public EquipmentController(EquipmentRepository repo) {
+        this.repo = repo;
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
     }
 
     @GetMapping
@@ -109,6 +122,7 @@ public class EquipmentController {
     public void delete(@PathVariable Long id) {
         repo.deleteById(id);
     }
+<<<<<<< HEAD
 
     @GetMapping("/reports/summary")
     public Map<String, Object> getReportsSummary() {
@@ -148,4 +162,6 @@ public class EquipmentController {
         summary.put("asOfDate", today.toString());
         return summary;
     }
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 }

@@ -5,6 +5,7 @@ import com.group_v.Student_labmangment_backend.model.Maintenance;
 import com.group_v.Student_labmangment_backend.repository.MaintenanceRepository;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+=======
+import java.util.List;
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 
 @RestController
 @RequestMapping("/api/maintenance")
@@ -43,6 +47,7 @@ public class MaintenanceController {
     public void delete(@PathVariable Long id) {
         repo.deleteById(id);
     }
+<<<<<<< HEAD
 
     @GetMapping("/frequency/monthly")
     public Map<String, Object> getMonthlyFrequency(
@@ -81,4 +86,6 @@ public class MaintenanceController {
         response.put("counts", monthlyCounts);
         return response;
     }
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 }

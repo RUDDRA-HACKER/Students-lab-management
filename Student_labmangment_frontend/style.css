@@ -217,6 +217,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 
 /* ── REPORTS ── */
 .reports-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+<<<<<<< HEAD
 .report-summary-grid { display: grid; grid-template-columns: repeat(5, minmax(140px, 1fr)); gap: 12px; margin-bottom: 18px; }
 .report-kpi { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; display: flex; flex-direction: column; gap: 6px; }
 .report-kpi-label { font-size: .76rem; color: var(--text2); text-transform: uppercase; letter-spacing: .05em; font-weight: 600; }
@@ -231,6 +232,8 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 .report-month-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 .report-month-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; font-size: .76rem; color: var(--text2); }
 .report-month-item strong { color: var(--text); margin-left: 6px; }
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 
 /* ── ALERTS ── */
 .alerts-list { display: flex; flex-direction: column; gap: 12px; }
@@ -304,7 +307,10 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
   .stats-grid { grid-template-columns: repeat(2,1fr); }
   .dashboard-grid { grid-template-columns: 1fr; }
   .reports-grid { grid-template-columns: 1fr; }
+<<<<<<< HEAD
   .report-summary-grid { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 }
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); }
@@ -324,5 +330,8 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
   .stats-grid { grid-template-columns: 1fr; }
   .page-header { flex-direction: column; }
   .topbar-right .btn span { display: none; }
+<<<<<<< HEAD
   .report-summary-grid { grid-template-columns: 1fr; }
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 }

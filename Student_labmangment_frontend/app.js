@@ -9,11 +9,14 @@ const state = {
   maintenance: maintenanceSeed.map((item) => ({ ...item })),
   calibration: calibrationSeed.map((item) => ({ ...item })),
   alerts: alertsSeed.map((item) => ({ ...item })),
+<<<<<<< HEAD
   reports: {
     summary: null,
     monthly: null,
     loading: false,
   },
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   activePage: 'dashboard',
   activeFilter: 'all',
   viewMode: 'grid',
@@ -41,6 +44,7 @@ const elements = {
   barChart: document.getElementById('barChart'),
   ageChart: document.getElementById('ageChart'),
   lineChart: document.getElementById('lineChart'),
+<<<<<<< HEAD
   refreshReportsBtn: document.getElementById('refreshReportsBtn'),
   reportTotalEquipment: document.getElementById('reportTotalEquipment'),
   reportDueMaintenance: document.getElementById('reportDueMaintenance'),
@@ -51,6 +55,8 @@ const elements = {
   reportRangeLabel: document.getElementById('reportRangeLabel'),
   reportMonthlyChart: document.getElementById('reportMonthlyChart'),
   reportMonthList: document.getElementById('reportMonthList'),
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   alertsList: document.getElementById('alertsList'),
   toastContainer: document.getElementById('toastContainer'),
   modal: document.getElementById('equipmentModal'),
@@ -309,6 +315,7 @@ async function fetchAlertsApi() {
   return Array.isArray(data) ? data.map(normalizeAlertFromApi) : [];
 }
 
+<<<<<<< HEAD
 async function fetchReportsSummaryApi() {
   return apiRequest('/api/equipment/reports/summary');
 }
@@ -318,6 +325,8 @@ async function fetchMonthlyMaintenanceFrequencyApi(months = 6) {
   return apiRequest(`/api/maintenance/frequency/monthly?months=${normalizedMonths}`);
 }
 
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 function toEquipmentApiPayload(payload) {
   return {
     name: payload.name,
@@ -393,6 +402,7 @@ async function loadAllDataFromApi({ showErrorToast = true } = {}) {
   }
 }
 
+<<<<<<< HEAD
 function formatStatusLabel(status) {
   const normalized = String(status || '').toUpperCase();
   if (normalized === 'UNDER_MAINTENANCE') return 'Under Maintenance';
@@ -547,6 +557,8 @@ async function loadReportsData({ showErrorToast = true, force = false } = {}) {
   }
 }
 
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 function renderEquipmentCard(item) {
   const ageLabel = item.purchaseDate ? `${Math.max(0, Math.floor((Date.now() - new Date(item.purchaseDate)) / 31536000000))} yrs` : 'N/A';
   return `
@@ -908,9 +920,12 @@ function setActivePage(page) {
   if (page === 'maintenance' || page === 'calibration' || page === 'alerts') {
     loadAllDataFromApi({ showErrorToast: false });
   }
+<<<<<<< HEAD
   if (page === 'reports') {
     loadReportsData({ showErrorToast: true });
   }
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   closeSidebar();
 }
 
@@ -1255,6 +1270,7 @@ function bindEvents() {
     showToast('Calibration list refreshed from backend.', 'info');
   });
 
+<<<<<<< HEAD
   if (elements.refreshReportsBtn) {
     elements.refreshReportsBtn.addEventListener('click', async () => {
       await loadReportsData({ showErrorToast: true, force: true });
@@ -1262,6 +1278,8 @@ function bindEvents() {
     });
   }
 
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
   [elements.closeModal, elements.cancelModal].forEach((button) => {
     button.addEventListener('click', () => {
       closeModal(elements.modal);
@@ -1306,7 +1324,10 @@ function refreshAll() {
   renderAlerts();
   populateEquipmentSelect();
   renderCharts();
+<<<<<<< HEAD
   renderReports();
+=======
+>>>>>>> 492aea2b269ece742014be469c283df7dc39372c
 }
 
 async function init() {
